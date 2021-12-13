@@ -1,20 +1,25 @@
-const form = document.querySelector('form');
+const taskForm = document.querySelector('.task');
 const container = document.querySelector('.container');
 const inputform = document.querySelector('.input');
 const mainBtn = document.querySelector('.btn-main');
+const editForm = document.querySelector('.edit-form')
+
+const editInputForm = document.querySelector('.edit-input');
+
 
 const editImg = document.createElement('img');
 editImg.setAttribute('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABEklEQVRIS92V7RHBQBCGn1SACuiAEuiEDuiADnSASiiBDuhAB8xrcmZz+bi7kDHjfmWSzfu1O3sZHZ+sY3y+RbAEHsABuFvRPsEU2AGjgLMFsAf6wBGY5PVnYGZJfIIrMGwBfsn/GQMFEp9ANnVC0VnlApdznRMgkhWwrQKKIaiLRXgurg2wbkPgKxeGi0XP6oVz9Gp2SkShWIRXAE8hqAKXwrr37zmJcZAKrpg0SZXT4je5DbgaPYglkBI10WbbFIti69nehiJyjqQoJvPSmMcSqC7Y0HwfFYYnlsBuj9Iomo+tHTiMJnDVJBME9l7p8+8J3JilKrf1N3ufVF04ukhCd0KdAIHP87Udtfc/cfInBE9SomMZFW4kRwAAAABJRU5ErkJggg==')
 
 
-form.addEventListener('submit', (e) => {
+editForm.style.visibility = "hidden";
+
+taskForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
 
     const card = document.createElement('div');
     card.className = 'card'
 
-    container.append(card)
 
 
     const p = document.createElement('p')
@@ -36,17 +41,29 @@ form.addEventListener('submit', (e) => {
 
     notDone.setAttribute('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAw0lEQVRIS+2U3Q2CQBCEPzqwEyxBO5BKtQMtQTuxBDOJJCfuHyYXX+ANssy3Ozt3A52fobM+GyB1+O8WnYAb8HRa3QEH4OKNEk0g8TNwB44GROJXYA9MHiQCSEDdjwakFX+8pzCnzHZgQeTG3HkorsIMoJolRN9kSypeBSwhei+JrwXMtug/b/FfYapa1HouEWvxZlIzgJUWCXnpWjVBFMUowh+QykHzFtpCfjpo6qTrVZHelJWCbMkVjbBmA6QWdrfoBQwINBmYmmoWAAAAAElFTkSuQmCC')
 
+    if (e.target.elements.task.value == "") {
+        console.log('nothing Here')
 
 
-    p.innerText = e.target.elements.task.value
-    card.append(p)
 
-    e.target.elements.task.value = "";
+    } else {
+        container.append(card)
 
-    card.append(removeImg)
-    card.append(editImg)
-    card.append(checkbox)
-    card.append(notDone)
+        p.innerText = e.target.elements.task.value
+        card.append(p)
+
+        e.target.elements.task.value = "";
+
+        card.append(removeImg)
+        card.append(editImg)
+        card.append(checkbox)
+
+    }
+
+
+
+
+
 
 
 
@@ -58,6 +75,10 @@ form.addEventListener('submit', (e) => {
     checkbox.addEventListener('click', e => {
         p.style.textDecoration = 'line-through'
         card.style.backgroundColor = "lightgreen"
+        card.append(notDone)
+        checkbox.remove()
+
+
 
     })
 
@@ -71,10 +92,40 @@ form.addEventListener('submit', (e) => {
 
     })
 
+    // editImg.addEventListener('click', (e) => {
+    //     console.log('clicked')
+    //     p.remove()
+    //     editInputForm.value = p.innerText;
+
+
+    //     card.append(editForm)
+    //     editForm.style.visibility = 'visible';
+
+
+
+    //     editForm.addEventListener('submit', (e) => {
+    //         e.preventDefault();
+
+
+    //         editText = document.createElement('p')
+
+
+    //         editText.innerText = e.target.elements.editTask.value;
+    //         editForm.remove();
+
+    //         card.append(editText)
+    //     })
+
+
+
+    // })
+
 
     notDone.addEventListener('click', (e) => {
         card.style.backgroundColor = "lavenderblush"
         p.style.textDecoration = 'none';
+        card.append(checkbox)
+        notDone.remove()
 
 
     })
